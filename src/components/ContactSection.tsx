@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, MapPin, Phone, Send, Loader2 } from 'lucide-react';
+import { Mail, MapPin, Phone, Send, Loader2, Trophy, ArrowRight } from 'lucide-react';
 import { z } from 'zod';
 import { useToast } from '@/hooks/use-toast';
 
-const FORMSPREE_URL = "https://formspree.io/f/meepnpdb";
+const FORMSPREE_URL = "https://formspree.io/f/mgopjyka";
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, 'Nama harus diisi').max(100),
@@ -14,34 +14,13 @@ const contactSchema = z.object({
 });
 
 const contactInfo = [
-  {
-    icon: Mail,
-    label: 'Email',
-    value: 'kodingarsil@gmail.com',
-    href: 'mailto:kodingarsil@gmail.com',
-  },
-  {
-    icon: Phone,
-    label: 'Telepon',
-    value: '+62 859-5012-4923',
-    href: 'https://wa.me/6285950124923', // ✅ FIXED
-  },
-  {
-    icon: MapPin,
-    label: 'Lokasi',
-    value: 'Banda Aceh, Indonesia',
-    href: '#',
-  },
+  { icon: Mail, label: 'COMM CHANNEL', value: 'hasancoding381@gmail.com', href: 'mailto:hasancoding381@gmail.com' },
+  { icon: Phone, label: 'TACTICAL LINE', value: '+62 853-3933-0842', href: 'https://wa.me/6285339330842' },
+  { icon: MapPin, label: 'BASE OPS', value: 'Banda Aceh, Indonesia', href: '#' },
 ];
 
 export default function ContactSection() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
-  });
-
+  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
@@ -49,204 +28,149 @@ export default function ContactSection() {
   const handleChange = (e: any) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-
-    if (errors[name]) {
-      setErrors((prev) => ({ ...prev, [name]: '' }));
-    }
+    if (errors[name]) setErrors((prev) => ({ ...prev, [name]: '' }));
   };
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    setErrors({});
-
     const result = contactSchema.safeParse(formData);
-
     if (!result.success) {
       const fieldErrors: Record<string, string> = {};
-      result.error.errors.forEach((err) => {
-        if (err.path[0]) {
-          fieldErrors[err.path[0] as string] = err.message;
-        }
-      });
+      result.error.errors.forEach((err) => { if (err.path[0]) fieldErrors[err.path[0] as string] = err.message; });
       setErrors(fieldErrors);
       return;
     }
 
     setIsSubmitting(true);
-
     try {
-      const form = new FormData();
-      form.append("name", formData.name);
-      form.append("email", formData.email);
-      form.append("subject", formData.subject);
-      form.append("message", formData.message);
-
       const response = await fetch(FORMSPREE_URL, {
         method: "POST",
-        body: form,
-        headers: {
-          Accept: "application/json",
-        },
+        body: JSON.stringify(formData),
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
       });
 
       if (!response.ok) throw new Error("Failed");
-
-      toast({
-        title: 'Pesan Terkirim ✨',
-        description: 'Masuk ke email aku, santai 😏',
-      });
-
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: '',
-      });
-
+      toast({ title: 'STRATEGY RECEIVED ✨', description: 'Pesan sudah masuk ke markas, segera diproses.' });
+      setFormData({ name: '', email: '', subject: '', message: '' });
     } catch (error) {
-      toast({
-        title: 'Gagal Mengirim',
-        description: 'error, coba lagi ya.',
-        variant: 'destructive',
-      });
+      toast({ title: 'TRANSMISSION ERROR', description: 'Gagal mengirim pesan, coba lagi.', variant: 'destructive' });
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <section
-      id="contact"
-      className="
-      py-20 md:py-32 px-4
-      bg-gradient-to-b 
-      from-amber-100 via-yellow-50 to-orange-200
-      dark:from-stone-900 dark:via-neutral-900 dark:to-zinc-900
-    "
-    >
-      <div className="max-w-6xl mx-auto">
-
+    <section id="contact" className="py-24 md:py-32 px-6 bg-[#ebeae6] dark:bg-zinc-950 overflow-hidden relative">
+      <div className="max-w-7xl mx-auto relative z-10">
+        
         {/* HEADER */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          className="text-center mb-16"
-        >
-          <span className="text-amber-700 dark:text-orange-300 font-medium mb-2 block">
-            Kontak
-          </span>
-
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 text-amber-900 dark:text-orange-200">
-            Hubungi Saya
+        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-24">
+          <span className="text-[#c5a059] font-black uppercase tracking-[0.4em] text-xs italic mb-4 block">Direct Comms</span>
+          <h2 className="text-4xl md:text-6xl font-black text-[#1e2b4d] dark:text-white uppercase italic tracking-tighter">
+            JOIN THE <span className="text-[#c5a059]">FIRST TEAM</span>
           </h2>
-
-          <div className="w-20 h-1 bg-amber-400 mx-auto rounded-full" />
+          <div className="mt-6 flex justify-center gap-1">
+            <div className="w-16 h-1.5 bg-[#1e2b4d] dark:bg-white" />
+            <div className="w-4 h-1.5 bg-[#c5a059]" />
+          </div>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-12">
-
-          {/* LEFT */}
-          <motion.div className="space-y-8">
+        <div className="grid lg:grid-cols-5 gap-16">
+          
+          {/* LEFT: INFO */}
+          <div className="lg:col-span-2 space-y-12">
             <div>
-              <h3 className="text-2xl font-bold mb-4 text-amber-900 dark:text-orange-200">
-                Mari Berkolaborasi!
+              <h3 className="text-3xl font-black text-[#1e2b4d] dark:text-white uppercase italic tracking-tighter mb-4">
+                READY FOR <br/> <span className="text-[#c5a059]">NEW CHALLENGES?</span>
               </h3>
-
-              <p className="text-amber-800 dark:text-orange-200/80">
-                Punya ide? Gas aja.
+              <p className="text-zinc-500 dark:text-zinc-400 font-medium italic">
+                Punya proyek ambisius? Mari kita bangun mahakarya digital bersama dengan presisi taktis.
               </p>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-6">
               {contactInfo.map((info, index) => (
-                <motion.a
-                  key={info.label}
-                  href={info.href}
-                  target="_blank"
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
+                <motion.a 
+                  key={info.label} 
+                  href={info.href} 
+                  initial={{ opacity: 0, x: -20 }} 
+                  whileInView={{ opacity: 1, x: 0 }} 
                   transition={{ delay: index * 0.1 }}
-                  className="
-                    flex items-center gap-4 p-4 rounded-xl
-                    bg-white/60 backdrop-blur border border-amber-200
-                    hover:shadow-[0_0_15px_rgba(255,180,100,0.3)]
-                    hover:scale-[1.02]
-                    transition-all
-                    dark:bg-zinc-800/60 dark:border-zinc-700
-                  "
+                  className="group relative block"
                 >
-                  <div className="p-3 rounded-lg bg-amber-200 dark:bg-orange-500/20">
-                    <info.icon className="h-5 w-5" />
-                  </div>
-
-                  <div>
-                    <p className="text-sm">{info.label}</p>
-                    <p className="font-medium">{info.value}</p>
+                  <div className="absolute inset-0 bg-[#1e2b4d] dark:bg-[#c5a059] translate-x-2 translate-y-2 z-0 opacity-0 group-hover:opacity-100 transition-all" />
+                  <div className="relative flex items-center gap-6 p-6 bg-white dark:bg-zinc-900 border border-black/5 dark:border-white/5 z-10 transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
+                    <div className="p-3 bg-[#1e2b4d] text-[#c5a059]">
+                      <info.icon size={20} />
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-black tracking-widest text-[#c5a059] mb-1">{info.label}</p>
+                      <p className="text-sm font-bold text-[#1e2b4d] dark:text-white uppercase tracking-tight">{info.value}</p>
+                    </div>
                   </div>
                 </motion.a>
               ))}
             </div>
-          </motion.div>
+          </div>
 
-          {/* FORM */}
-          <motion.form
-            onSubmit={handleSubmit}
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            className="space-y-6 p-6 rounded-2xl bg-white/60 backdrop-blur border border-amber-200 shadow-md dark:bg-zinc-800/60"
+          {/* RIGHT: TACTICAL FORM */}
+          <motion.form 
+            onSubmit={handleSubmit} 
+            className="lg:col-span-3 space-y-8 p-8 md:p-12 bg-white dark:bg-zinc-900 border border-black/5 dark:border-white/5 relative overflow-hidden"
           >
-            <input
-              name="name"
-              placeholder="Nama"
-              value={formData.name}
-              onChange={handleChange}
-              className="w-full px-4 py-2 rounded-lg bg-white/80 border border-amber-200 focus:outline-none focus:ring-2 focus:ring-amber-400"
-            />
+            {/* Background Decor */}
+            <Trophy className="absolute -right-8 -bottom-8 w-48 h-48 text-black/[0.02] dark:text-white/[0.02] -rotate-12 pointer-events-none" />
+            
+            <div className="grid md:grid-cols-2 gap-8">
+              {/* Name */}
+              <div className="relative">
+                <span className="absolute -top-3 left-4 text-[10px] font-black text-[#c5a059] bg-white dark:bg-zinc-900 px-2 z-20">01 / NAME</span>
+                <input 
+                  name="name" value={formData.name} onChange={handleChange}
+                  className="w-full bg-transparent border-2 border-zinc-100 dark:border-zinc-800 p-4 text-sm font-bold uppercase tracking-tighter focus:border-[#c5a059] outline-none transition-colors"
+                />
+                {errors.name && <p className="text-[10px] text-red-500 font-bold mt-1 uppercase italic">{errors.name}</p>}
+              </div>
 
-            <input
-              name="email"
-              placeholder="Email"
-              value={formData.email}
-              onChange={handleChange}
-              className="w-full px-4 py-2 rounded-lg bg-white/80 border border-amber-200 focus:outline-none focus:ring-2 focus:ring-amber-400"
-            />
+              {/* Email */}
+              <div className="relative">
+                <span className="absolute -top-3 left-4 text-[10px] font-black text-[#c5a059] bg-white dark:bg-zinc-900 px-2 z-20">02 / EMAIL</span>
+                <input 
+                  name="email" value={formData.email} onChange={handleChange}
+                  className="w-full bg-transparent border-2 border-zinc-100 dark:border-zinc-800 p-4 text-sm font-bold uppercase tracking-tighter focus:border-[#c5a059] outline-none transition-colors"
+                />
+                {errors.email && <p className="text-[10px] text-red-500 font-bold mt-1 uppercase italic">{errors.email}</p>}
+              </div>
+            </div>
 
-            <input
-              name="subject"
-              placeholder="Subjek"
-              value={formData.subject}
-              onChange={handleChange}
-              className="w-full px-4 py-2 rounded-lg bg-white/80 border border-amber-200 focus:outline-none focus:ring-2 focus:ring-amber-400"
-            />
+            {/* Subject */}
+            <div className="relative">
+              <span className="absolute -top-3 left-4 text-[10px] font-black text-[#c5a059] bg-white dark:bg-zinc-900 px-2 z-20">03 / OBJECTIVE</span>
+              <input 
+                name="subject" value={formData.subject} onChange={handleChange}
+                className="w-full bg-transparent border-2 border-zinc-100 dark:border-zinc-800 p-4 text-sm font-bold uppercase tracking-tighter focus:border-[#c5a059] outline-none transition-colors"
+              />
+            </div>
 
-            <textarea
-              name="message"
-              placeholder="Pesan..."
-              rows={5}
-              value={formData.message}
-              onChange={handleChange}
-              className="w-full px-4 py-2 rounded-lg bg-white/80 border border-amber-200 focus:outline-none focus:ring-2 focus:ring-amber-400"
-            />
+            {/* Message */}
+            <div className="relative">
+              <span className="absolute -top-3 left-4 text-[10px] font-black text-[#c5a059] bg-white dark:bg-zinc-900 px-2 z-20">04 / INTEL BRIEF</span>
+              <textarea 
+                name="message" value={formData.message} onChange={handleChange} rows={5}
+                className="w-full bg-transparent border-2 border-zinc-100 dark:border-zinc-800 p-4 text-sm font-bold uppercase tracking-tighter focus:border-[#c5a059] outline-none transition-colors resize-none"
+              />
+            </div>
 
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-amber-400 to-yellow-500 text-white hover:opacity-90 transition"
+            <button 
+              type="submit" disabled={isSubmitting}
+              className="group relative w-full bg-[#1e2b4d] dark:bg-[#c5a059] text-white dark:text-[#1e2b4d] p-5 font-black uppercase italic tracking-[0.3em] overflow-hidden transition-all active:scale-95"
             >
-              {isSubmitting ? (
-                <>
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                  Mengirim...
-                </>
-              ) : (
-                <>
-                  <Send className="h-4 w-4" />
-                  Kirim Pesan
-                </>
-              )}
+              <div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+              <span className="relative z-10 flex items-center justify-center gap-3">
+                {isSubmitting ? <Loader2 size={18} className="animate-spin" /> : <><Send size={18} strokeWidth={3}/> SEND TRANSMISSION</>}
+              </span>
             </button>
           </motion.form>
-
         </div>
       </div>
     </section>

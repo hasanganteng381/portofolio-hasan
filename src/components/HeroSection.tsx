@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ArrowDown, Github, Linkedin, Youtube, Instagram } from 'lucide-react';
+import { ArrowDown, Github, Linkedin, Youtube, Instagram, ShieldCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ThreeScene from './ThreeScene';
 
@@ -12,150 +12,176 @@ export default function HeroSection() {
   };
 
   const socialLinks = [
-    { icon: Github, link: 'https://github.com/Arsil203' },
+    { icon: Github, link: 'https://github.com/hasanganteng381' },
     // { icon: Linkedin, link: 'https://linkedin.com/in/username' },
-    // { icon: Youtube, link: 'https://youtube.com/@username' },
-    { icon: Instagram, link: 'https://instagram.com/mhd_arsll' },
+    // { icon: Youtube, link: 'https://youtube.com/blank' },
+    { icon: Instagram, link: 'https://instagram.com/mhdhasan_42' },
   ];
 
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden 
-      bg-gradient-to-br from-amber-100 via-yellow-50 to-orange-200
-      dark:from-zinc-900 dark:via-neutral-900 dark:to-stone-900"
+      className="relative min-h-screen flex items-start md:items-center justify-center overflow-hidden bg-[#ebeae6] dark:bg-zinc-950"
     >
+      {/* BACKGROUND GRADIENT & TEXTURE */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,_rgba(197,160,89,0.15),transparent_50%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,_rgba(30,43,77,0.1),transparent_50%)]" />
+        <div 
+          className="absolute inset-0 opacity-20 pointer-events-none"
+          style={{ backgroundImage: `url('https://www.transparenttextures.com/patterns/concrete-wall-2.png')` }}
+        />
+      </div>
+
       <ThreeScene />
 
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10">
+      {/* WATERMARK BACKGROUND */}
+      <div className="absolute right-[-5%] top-1/2 -translate-y-1/2 pointer-events-none overflow-hidden select-none opacity-[0.07] hidden lg:block">
+        <h2 className="text-[22vw] font-black text-blue-950 leading-none uppercase italic tracking-tighter">
+          MADRID
+        </h2>
+      </div>
 
-          {/* FOTO (LEBIH BESAR) */}
-          <motion.div
-            initial={{ opacity: 0, x: -80 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            className="relative group"
+      {/* FLOATING SOCIAL BAR (KHUSUS HERO SECTION) */}
+      {/* Menggunakan 'absolute' agar bar ini tetap berada di dalam section ini saja */}
+      <motion.div 
+        initial={{ opacity: 0, x: 50 }}
+        animate={{ opacity: 1, x: 0, y: ["-50%", "-52%", "-50%"] }}
+        transition={{ 
+          opacity: { delay: 1, duration: 0.5 },
+          x: { delay: 1, duration: 0.5 },
+          y: { duration: 4, repeat: Infinity, ease: "easeInOut" } 
+        }}
+        className="absolute right-8 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col items-center gap-6 p-5 rounded-full 
+        bg-white/40 dark:bg-zinc-900/40 backdrop-blur-xl border border-white/40 dark:border-zinc-700/50 shadow-[0_10px_40px_rgba(0,0,0,0.1)]"
+      >
+        <div className="w-px h-10 bg-[#c5a059]/40 mb-2" />
+        {socialLinks.map((item, i) => (
+          <motion.a 
+            key={i}
+            href={item.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.3, color: '#c5a059' }}
+            className="text-[#1e2b4d] dark:text-gray-300 transition-colors"
           >
-            <motion.div
-              animate={{ y: [0, -20, 0] }}
-              transition={{ duration: 4, repeat: Infinity }}
-              className="w-80 h-80 md:w-[420px] md:h-[420px] rounded-full overflow-hidden border-4
-              border-amber-400 shadow-[0_0_60px_rgba(251,191,36,0.35)]
-              dark:border-orange-400 dark:shadow-[0_0_60px_rgba(251,146,60,0.35)]"
-            >
-              <img
-                src="/profile.jpg"
-                alt="profile"
-                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-              />
-            </motion.div>
+            <item.icon size={20} strokeWidth={2.5} />
+          </motion.a>
+        ))}
+        <div className="w-px h-10 bg-[#c5a059]/40 mt-2" />
+      </motion.div>
 
-            <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs
-            bg-amber-300 text-amber-900 opacity-0 group-hover:opacity-100 transition
-            dark:bg-zinc-800 dark:text-orange-300">
-              👀 
-            </div>
+      <div className="container mx-auto px-6 relative z-10 mt-32 md:mt-20">
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-center gap-12 lg:gap-20">
+
+          {/* FOTO SECTION */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1 }}
+            className="relative"
+          >
+            <motion.div 
+              animate={{ opacity: [0.3, 0.6, 0.3] }}
+              transition={{ duration: 3, repeat: Infinity }}
+              className="absolute -top-6 -right-6 w-32 h-32 border-t-[12px] border-r-[12px] border-[#c5a059]/40 z-0" 
+            />
+            <motion.div 
+              animate={{ opacity: [0.3, 0.6, 0.3] }}
+              transition={{ duration: 3, repeat: Infinity, delay: 1.5 }}
+              className="absolute -bottom-6 -left-6 w-32 h-32 border-b-[12px] border-l-[12px] border-[#c5a059]/40 z-0" 
+            />
+            
+            <motion.div 
+              animate={{ y: [0, -15, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              className="relative z-10 group cursor-pointer"
+            >
+              <div className="w-64 h-80 md:w-[350px] md:h-[450px] overflow-hidden border-[12px] border-white dark:border-zinc-800 shadow-[20px_20px_60px_rgba(0,0,0,0.15)] relative">
+                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/40 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 z-20" />
+                <img
+                  src="/profile.jpg" 
+                  alt="Hero Profile"
+                  className="w-full h-full object-cover grayscale-[5%] contrast-110 transition-transform duration-700 group-hover:scale-110"
+                />
+              </div>
+              
+              <motion.div 
+                animate={{ y: [0, 5, 0], rotate: [-5, -2, -5] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute -top-10 -left-10 bg-[#c5a059] p-3 shadow-2xl z-30"
+              >
+                <ShieldCheck className="w-10 h-10 text-white" />
+              </motion.div>
+            </motion.div>
           </motion.div>
 
-          {/* TEXT */}
-          <div className="flex-1 text-left md:pl-6">
-
-            <motion.span
-              className="inline-block px-3 py-1 rounded-full text-xs font-medium mb-4
-              bg-amber-200 text-amber-900
-              dark:bg-zinc-800 dark:text-orange-300"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
+          {/* TEXT CONTENT SECTION */}
+          <div className="w-full md:w-[550px] text-left z-20">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
+              className="flex items-center gap-3 mb-4"
             >
-              👋 Selamat Datang
-            </motion.span>
+              <div className="h-[3px] w-12 bg-[#1e2b4d] dark:bg-yellow-500" />
+              <span className="text-sm font-black tracking-[0.2em] text-[#c5a059] uppercase italic">
+                The New Galactico
+              </span>
+            </motion.div>
 
             <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="font-display text-4xl md:text-6xl font-bold mb-4
-              text-amber-900 dark:text-orange-200"
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="text-6xl md:text-8xl font-black leading-[0.85] text-[#1e2b4d] dark:text-white uppercase italic tracking-tighter"
             >
-              Muhammad Arsil Bisyari
+              HASAN <br />
+              <span className="text-[#c5a059] drop-shadow-sm">KHALIS</span>
             </motion.h1>
 
             <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              className="text-base md:text-lg mb-6 max-w-lg
-              text-amber-800 dark:text-orange-200/80"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              className="text-base md:text-lg font-bold text-gray-700 dark:text-gray-300 uppercase tracking-tight my-8 leading-tight max-w-md"
             >
-              Saya membangun aplikasi web yang indah dan fungsional,
-              serta membagikan pengetahuan melalui konten inspiratif.
+              Web Developer & Visual Creator. <br />
+              Membangun Mahakarya digital dengan semangat <span className="text-[#1e2b4d] dark:text-blue-400 underline underline-offset-4 decoration-[#c5a059] decoration-4 font-black">MADRID</span>.
             </motion.p>
 
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              className="flex flex-wrap gap-4"
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.7 }}
-              className="flex flex-wrap items-center gap-3 mb-6"
+              transition={{ delay: 0.6 }}
             >
               <Button
-                size="sm"
-                className="rounded-full px-6
-                bg-amber-500 hover:bg-amber-600 text-white
-                dark:bg-orange-500 dark:hover:bg-orange-600"
+                size="lg"
+                className="bg-[#1e2b4d] hover:bg-[#c5a059] text-white rounded-none px-10 py-7 text-xl font-black italic uppercase transition-all shadow-[6px_6px_0px_#c5a059] hover:shadow-none hover:translate-x-1 hover:translate-y-1"
               >
-                Projects
+                View Works
               </Button>
-
               <Button
                 variant="outline"
-                size="sm"
-                className="rounded-full px-6
-                border-amber-500 text-amber-800
-                hover:bg-amber-500 hover:text-white
-                dark:border-orange-400 dark:text-orange-300
-                dark:hover:bg-orange-500 dark:hover:text-white"
+                size="lg"
+                className="border-[3px] border-[#1e2b4d] dark:border-white text-[#1e2b4d] dark:text-white rounded-none px-10 py-7 text-xl font-black italic uppercase hover:bg-[#1e2b4d] hover:text-white transition-all shadow-[6px_6px_0px_rgba(0,0,0,0.1)]"
               >
                 Contact
               </Button>
             </motion.div>
-
-            {/* SOCIAL ICON (SUDAH ADA LINK) */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.9 }}
-              className="flex items-center gap-4"
-            >
-              {socialLinks.map((item, i) => (
-                <motion.a
-                  key={i}
-                  href={item.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2 rounded-full transition-all
-                  bg-amber-200 hover:bg-amber-400
-                  dark:bg-zinc-800 dark:hover:bg-orange-500"
-                  whileHover={{ scale: 1.2, y: -2 }}
-                >
-                  <item.icon className="h-4 w-4 text-amber-900 dark:text-orange-300" />
-                </motion.a>
-              ))}
-            </motion.div>
-
           </div>
         </div>
       </div>
 
-      {/* SCROLL BUTTON */}
+      {/* SCROLL INDICATOR */}
       <motion.button
         onClick={scrollToAbout}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 p-3 rounded-full
-        bg-amber-200 dark:bg-zinc-800"
-        whileHover={{ scale: 1.1 }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 opacity-50 hover:opacity-100 transition-opacity"
+        animate={{ y: [0, 10, 0] }}
+        transition={{ duration: 1.5, repeat: Infinity }}
       >
-        <ArrowDown className="h-5 w-5 text-amber-900 dark:text-orange-300" />
+        <ArrowDown className="w-6 h-6 text-[#c5a059]" strokeWidth={3} />
       </motion.button>
     </section>
   );

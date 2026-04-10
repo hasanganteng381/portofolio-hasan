@@ -23,7 +23,7 @@ export default function LoadingScreen({ onFinish }: { onFinish: () => void }) {
       `}
     >
       <DotLottieReact
-        src="https://lottie.host/0c168786-4995-4d73-9a00-0c315442512e/i2LWbbE7IV.lottie"
+        src="https://lottie.host/41c34658-a523-4b6f-9d12-71e440b84233/0oNKwU1Brs.lottie"
         autoplay
         loop
         style={{ width: 200, height: 200 }}

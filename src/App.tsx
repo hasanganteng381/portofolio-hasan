@@ -9,6 +9,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import ThreeScene from "./components/ThreeScene";
 import LoadingScreen from "./components/LoadingScreen";
+import CustomCursor from "./components/Cursor"; // Import komponen baru
 
 const queryClient = new QueryClient();
 
@@ -19,12 +20,16 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         
+        {/* 0. CUSTOM CURSOR */}
+        {/* Diletakkan di luar <main> agar tidak terkena efek opacity/pointer-events */}
+        <CustomCursor />
+
         {/* 1. LOADING SCREEN */}
         {loading && (
           <LoadingScreen onFinish={() => setLoading(false)} />
         )}
 
-
+        
         {/* 3. MAIN UI CONTENT */}
         <main
           className={`

@@ -40,3 +40,13 @@
 .read-the-docs {
   color: #888;
 }
+
+* {
+  cursor: none !important;
+}
+
+/* Pastikan saat loading pun cursor asli tidak muncul */
+html, body {
+  cursor: none;
+  overflow-x: hidden;
+}

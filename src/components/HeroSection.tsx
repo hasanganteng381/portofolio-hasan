@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
-import { ArrowDown, Github, Linkedin, Youtube, Instagram, ShieldCheck } from 'lucide-react';
+import { ArrowDown, Github, Instagram, ShieldCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import ThreeScene from './ThreeScene';
 
 export default function HeroSection() {
   const scrollToAbout = () => {
@@ -13,8 +12,6 @@ export default function HeroSection() {
 
   const socialLinks = [
     { icon: Github, link: 'https://github.com/hasanganteng381' },
-    // { icon: Linkedin, link: 'https://linkedin.com/in/username' },
-    // { icon: Youtube, link: 'https://youtube.com/blank' },
     { icon: Instagram, link: 'https://instagram.com/mhdhasan_42' },
   ];
 
@@ -33,7 +30,7 @@ export default function HeroSection() {
         />
       </div>
 
-      <ThreeScene />
+      {/* THREE SCENE DIHAPUS DARI SINI AGAR TIDAK DOUBLE/TABRAKAN DENGAN LOADING */}
 
       {/* WATERMARK BACKGROUND */}
       <div className="absolute right-[-5%] top-1/2 -translate-y-1/2 pointer-events-none overflow-hidden select-none opacity-[0.07] hidden lg:block">
@@ -42,8 +39,7 @@ export default function HeroSection() {
         </h2>
       </div>
 
-      {/* FLOATING SOCIAL BAR (KHUSUS HERO SECTION) */}
-      {/* Menggunakan 'absolute' agar bar ini tetap berada di dalam section ini saja */}
+      {/* FLOATING SOCIAL BAR */}
       <motion.div 
         initial={{ opacity: 0, x: 50 }}
         animate={{ opacity: 1, x: 0, y: ["-50%", "-52%", "-50%"] }}

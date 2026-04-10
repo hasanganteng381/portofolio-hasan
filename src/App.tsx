@@ -24,12 +24,6 @@ const App = () => {
           <LoadingScreen onFinish={() => setLoading(false)} />
         )}
 
-        2. GLOBAL BACKGROUND (Hanya muncul SETELAH loading)
-        {!loading && (
-          <div className="fixed inset-0 -z-10 animate-fade-in">
-            <ThreeScene />
-          </div>
-        )}
 
         {/* 3. MAIN UI CONTENT */}
         <main

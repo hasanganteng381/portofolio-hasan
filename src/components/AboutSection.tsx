@@ -88,7 +88,7 @@ export default function AboutSection() {
                 className="relative aspect-[3/4] md:aspect-[4/5] w-full overflow-hidden border-[12px] border-white dark:border-zinc-900 shadow-[30px_30px_60px_rgba(0,0,0,0.12)] skew-y-1"
               >
                 <img 
-                  src="/profile.jpg" 
+                  src="/about.jpg" 
                   alt="About Visual" 
                   className="w-full h-full object-cover grayscale-[30%] hover:grayscale-0 transition-all duration-700 scale-110"
                 />

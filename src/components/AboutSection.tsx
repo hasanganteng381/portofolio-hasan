@@ -81,7 +81,7 @@ export default function AboutSection() {
             </div>
 
             <div className="relative z-10 w-full max-w-[450px]">
-              {/* Frame Foto Utama - Ukuran dipastikan tetap lebar */}
+              {/* Frame Foto Utama */}
               <motion.div
                 animate={{ y: [0, -15, 0] }}
                 transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
@@ -93,6 +93,27 @@ export default function AboutSection() {
                   className="w-full h-full object-cover grayscale-[30%] hover:grayscale-0 transition-all duration-700 scale-110"
                 />
                 <div className="absolute inset-0 border-[1px] border-white/20 pointer-events-none" />
+              </motion.div>
+
+              {/* LOGO REAL MADRID TERAPUNG - Tambahan Baru */}
+              <motion.div
+                animate={{ 
+                  y: [-10, 10, -10],
+                  rotate: [5, -5, 5]
+                }}
+                transition={{ 
+                  duration: 5, 
+                  repeat: Infinity, 
+                  ease: "easeInOut" 
+                }}
+                className="absolute -top-10 -right-10 z-30 pointer-events-none opacity-80"
+              >
+                {/* Ganti '/logo-madrid.png' dengan path logo Madrid kamu */}
+                <img 
+                  src="/cursor-normal.png" 
+                  alt="Real Madrid Logo" 
+                  className="w-24 h-24 object-contain drop-shadow-[0_10px_10px_rgba(0,0,0,0.3)]"
+                />
               </motion.div>
 
               {/* Floating Badge (Galactico) */}
@@ -124,57 +145,66 @@ export default function AboutSection() {
           >
             <div>
               <h3 className="text-3xl md:text-4xl font-black text-[#1e2b4d] dark:text-white uppercase italic tracking-tighter mb-4">
-                Muhammad Hasan Khalis
+                Hasan Khalis
               </h3>
               <p className="text-gray-600 dark:text-gray-400 font-medium leading-relaxed italic border-l-4 border-[#c5a059] pl-4">
                 "Membangun mahakarya digital bukan hanya soal baris kode, tapi soal bagaimana memberikan dampak dan emosi pada setiap pengguna."
               </p>
             </div>
 
-            {/* Accordion */}
-            <div className="space-y-4">
-              {accordion.map((item, i) => (
-                <div
-                  key={i}
-                  className={`border-b border-[#1e2b4d]/10 dark:border-white/10 transition-all ${
-                    openIndex === i ? 'bg-white/50 dark:bg-white/5' : ''
-                  }`}
-                >
-                  <button
-                    onClick={() => setOpenIndex(openIndex === i ? null : i)}
-                    className="w-full flex items-center justify-between py-4 text-left group"
+            {/* Accordion Improved */}
+            <div className="space-y-3">
+              {accordion.map((item, i) => {
+                const isOpen = openIndex === i;
+                return (
+                  <div
+                    key={i}
+                    className={`group border border-[#1e2b4d]/5 dark:border-white/5 transition-all duration-300 ${
+                      isOpen 
+                        ? 'bg-white dark:bg-zinc-900 shadow-md border-l-[6px] border-l-[#c5a059]' 
+                        : 'bg-transparent hover:bg-white/40 dark:hover:bg-white/5 border-l-[6px] border-l-transparent'
+                    }`}
                   >
-                    <div className="flex items-center gap-4">
-                      <item.icon className={`w-5 h-5 ${openIndex === i ? 'text-[#c5a059]' : 'text-gray-400'}`} />
-                      <span className={`font-black uppercase italic tracking-wider text-sm md:text-base ${
-                        openIndex === i ? 'text-[#1e2b4d] dark:text-[#c5a059]' : 'text-gray-500'
-                      }`}>
-                        {item.title}
-                      </span>
-                    </div>
-                    <ChevronDown
-                      className={`w-5 h-5 transition-transform duration-300 ${
-                        openIndex === i ? 'rotate-180 text-[#c5a059]' : 'text-gray-400'
-                      }`}
-                    />
-                  </button>
-
-                  <AnimatePresence mode="wait">
-                    {openIndex === i && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        className="overflow-hidden"
-                      >
-                        <div className="pb-6 text-sm md:text-base text-gray-600 dark:text-gray-400 leading-relaxed font-medium">
-                          {item.content}
+                    <button
+                      onClick={() => setOpenIndex(isOpen ? null : i)}
+                      className="w-full flex items-center justify-between p-5 text-left transition-colors"
+                    >
+                      <div className="flex items-center gap-4">
+                        <div className={`p-2 transition-colors duration-300 ${isOpen ? 'bg-[#c5a059] text-white' : 'bg-gray-200 dark:bg-zinc-800 text-gray-500'}`}>
+                           <item.icon size={18} strokeWidth={2.5} />
                         </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              ))}
+                        <span className={`font-black uppercase italic tracking-wider text-sm md:text-base transition-colors duration-300 ${
+                          isOpen ? 'text-[#1e2b4d] dark:text-white' : 'text-gray-500 group-hover:text-gray-700 dark:group-hover:text-gray-300'
+                        }`}>
+                          {item.title}
+                        </span>
+                      </div>
+                      <ChevronDown
+                        className={`w-5 h-5 transition-transform duration-500 ${
+                          isOpen ? 'rotate-180 text-[#c5a059]' : 'text-gray-400 opacity-50'
+                        }`}
+                      />
+                    </button>
+
+                    <AnimatePresence>
+                      {isOpen && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.4, ease: [0.04, 0.62, 0.23, 0.98] }}
+                          className="overflow-hidden"
+                        >
+                          <div className="px-5 pb-6 ml-11 text-sm md:text-base text-gray-600 dark:text-gray-400 leading-relaxed font-medium">
+                            <div className="h-px w-full bg-gray-100 dark:bg-zinc-800 mb-4" />
+                            {item.content}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              })}
             </div>
 
             {/* Stats Badges */}

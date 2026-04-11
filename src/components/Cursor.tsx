@@ -10,9 +10,7 @@ const CustomCursor = () => {
   const mouseX = useMotionValue(-100);
   const mouseY = useMotionValue(-100);
 
-  // 2. Konfigurasi Spring untuk membuat efek DELAY
-  // stiffness: semakin rendah, semakin lambat mengejar mouse (delay makin terasa)
-  // damping: semakin tinggi, semakin sedikit goyangan saat berhenti
+  // 2. Konfigurasi Spring untuk efek delay yang halus
   const springConfig = { 
     damping: 35, 
     stiffness: 150, 
@@ -33,7 +31,7 @@ const CustomCursor = () => {
 
     window.addEventListener("mousemove", moveCursor);
 
-    // Menangani hover pada link, button, dan elemen interaktif lainnya
+    // Menangani hover pada elemen interaktif
     const interactiveElements = document.querySelectorAll('button, a, input, textarea, [role="button"]');
     interactiveElements.forEach((el) => {
       el.addEventListener("mouseenter", handleMouseEnter);
@@ -61,18 +59,22 @@ const CustomCursor = () => {
           y: edgeY,
           translateX: "-50%",
           translateY: "-50%",
-          /** * GANTI URL DI BAWAH:
-           * Masukkan file cursor yang kamu ambil dari website custom cursor ke folder /public
-           */
-          backgroundImage: isHovered 
-            ? "url('/cursor-pointer.png')" 
-            : "url('/cursor-normal.png')",
+          backgroundImage: "url('/cursor-normal.png')",
         }}
+        // ANIMASI SAAT HOVER
         animate={{
-          scale: isHovered ? 1.5 : 1,
-          rotate: isHovered ? 15 : 0, // Sedikit rotasi saat hover agar lebih dinamis
+          scale: isHovered ? 2.5 : 1, // Perbesar lebih banyak agar efek blur terlihat jelas
+          rotate: isHovered ? 15 : 0,
+          opacity: isHovered ? 0.4 : 1, // Menjadi transparan (0.4)
+          filter: isHovered ? "blur(4px)" : "blur(0px)", // Memberikan efek blur
         }}
-        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+        transition={{ 
+          type: "spring", 
+          stiffness: 300, 
+          damping: 25,
+          // Mengatur durasi khusus untuk filter agar transisi blur lebih smooth
+          filter: { duration: 0.2 } 
+        }}
       />
     </div>
   );

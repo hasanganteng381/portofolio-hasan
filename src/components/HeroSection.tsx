@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ArrowDown, Github, Instagram, ShieldCheck } from 'lucide-react';
+import { ArrowDown, Github, Instagram } from 'lucide-react'; // ShieldCheck tetap dihapus
 import { Button } from '@/components/ui/button';
 
 export default function HeroSection() {
@@ -29,8 +29,6 @@ export default function HeroSection() {
           style={{ backgroundImage: `url('https://www.transparenttextures.com/patterns/concrete-wall-2.png')` }}
         />
       </div>
-
-      {/* THREE SCENE DIHAPUS DARI SINI AGAR TIDAK DOUBLE/TABRAKAN DENGAN LOADING */}
 
       {/* WATERMARK BACKGROUND */}
       <div className="absolute right-[-5%] top-1/2 -translate-y-1/2 pointer-events-none overflow-hidden select-none opacity-[0.07] hidden lg:block">
@@ -77,6 +75,7 @@ export default function HeroSection() {
             transition={{ duration: 1 }}
             className="relative"
           >
+            {/* Corner Borders Emas (Dibiarkan untuk estetika, tapi bisa dihapus jika perlu) */}
             <motion.div 
               animate={{ opacity: [0.3, 0.6, 0.3] }}
               transition={{ duration: 3, repeat: Infinity }}
@@ -93,7 +92,9 @@ export default function HeroSection() {
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
               className="relative z-10 group cursor-pointer"
             >
-              <div className="w-64 h-80 md:w-[350px] md:h-[450px] overflow-hidden border-[12px] border-white dark:border-zinc-800 shadow-[20px_20px_60px_rgba(0,0,0,0.15)] relative">
+              {/* KONTEN FOTO - Tanpa Border */}
+              <div className="w-64 h-80 md:w-[350px] md:h-[450px] overflow-hidden shadow-[20px_20px_60px_rgba(0,0,0,0.15)] relative">
+                {/* Efek Shine hover tetap ada */}
                 <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/40 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 z-20" />
                 <img
                   src="/profile.jpg" 
@@ -102,12 +103,18 @@ export default function HeroSection() {
                 />
               </div>
               
+              {/* LOGO MADRID TANPA FRAME/BORDER */}
               <motion.div 
                 animate={{ y: [0, 5, 0], rotate: [-5, -2, -5] }}
                 transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -top-10 -left-10 bg-[#c5a059] p-3 shadow-2xl z-30"
+                className="absolute -top-8 -left-8 z-30 pointer-events-none" // Menghapus p-2, rounded-full, border, background
               >
-                <ShieldCheck className="w-10 h-10 text-white" />
+                {/* Pastikan file logo-madrid.png ada di folder public */}
+                <img 
+                  src="/cursor-normal.png" 
+                  alt="Real Madrid Logo" 
+                  className="w-20 h-20 object-contain drop-shadow-2xl" // Memberikan bayangan agar logo tetap terlihat jelas di BG terang
+                />
               </motion.div>
             </motion.div>
           </motion.div>
